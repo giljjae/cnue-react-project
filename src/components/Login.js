@@ -7,10 +7,14 @@ function Login() {
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState('');
 
+    // 환경 변수에서 API URL을 가져옵니다.
+    const apiUrl = process.env.REACT_APP_API_URL;
+
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            const response = await axios.post('http://127.0.0.1:8000/api/login/', { username, password });
+            // 하드코딩된 URL 대신 환경 변수를 사용합니다.
+            const response = await axios.post(`${apiUrl}/login/`, { username, password });
             setMessage(response.data.message);
         } catch (error) {
             if (error.response) {
