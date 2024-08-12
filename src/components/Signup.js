@@ -1,6 +1,6 @@
-// src/components/Signup.js
 import React, { useState } from 'react';
 import axios from 'axios';
+import '/home/kgj/load/cnue-react-project/src/App.css'; // 스타일을 적용하기 위해 import합니다.
 
 function Signup() {
     const [username, setUsername] = useState('');
@@ -10,7 +10,7 @@ function Signup() {
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            const response = await axios.post('http://127.0.0.1:8000/api/signup/', { username, password });
+            const response = await axios.post(process.env.REACT_APP_API_URL + '/api/signup/', { username, password });
             setMessage(response.data.message);
         } catch (error) {
             if (error.response) {
@@ -24,35 +24,39 @@ function Signup() {
     };
 
     return (
-        <div className="container">
-            <h2>처음 뵙겠습니다</h2>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label htmlFor="username">Username:</label>
-                    <input
-                        type="text"
-                        id="username"
-                        name="username"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                    />
-                </div>
-                <div>
-                    <label htmlFor="password">Password:</label>
-                    <input
-                        type="password"
-                        id="password"
-                        name="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                    />
-                </div>
-                <button type="submit">이걸로 하겠습니다.</button>
-            </form>
-            {message && <p>{message}</p>}
-            <p>
-                <a href="/login">사실 구면입니다</a>
-            </p>
+        <div className="home-container">
+            <div className="home-box">
+                <h2 className="home-heading">회원가입</h2>
+                <form onSubmit={handleSubmit} className="login-form">
+                    <div className="form-group">
+                        <label htmlFor="username">ID :</label>
+                        <input
+                            type="text"
+                            id="username"
+                            name="username"
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
+                            className="form-input"
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="password">Password :</label>
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            className="form-input"
+                        />
+                    </div>
+                    <button type="submit" className="home-button">가입하기</button>
+                </form>
+                {message && <p className="form-message">{message}</p>}
+                <p>
+                    <a href="/login" className="home-link">로그인</a>
+                </p>
+            </div>
         </div>
     );
 }

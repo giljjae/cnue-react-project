@@ -1,20 +1,16 @@
-// src/components/Login.js
 import React, { useState } from 'react';
 import axios from 'axios';
+import '/home/kgj/load/cnue-react-project/src/App.css'; // 스타일을 적용하기 위해 import합니다.
 
 function Login() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState('');
 
-    // 환경 변수에서 API URL을 가져옵니다.
-    const apiUrl = process.env.REACT_APP_API_URL;
-
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            // 하드코딩된 URL 대신 환경 변수를 사용합니다.
-            const response = await axios.post(`${apiUrl}/login/`, { username, password });
+            const response = await axios.post(process.env.REACT_APP_API_URL + '/api/login/', { username, password });
             setMessage(response.data.message);
         } catch (error) {
             if (error.response) {
@@ -28,35 +24,39 @@ function Login() {
     };
 
     return (
-        <div className="container">
-            <h2>들어오십시오</h2>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label htmlFor="username">Username: </label>
-                    <input
-                        type="text"
-                        id="username"
-                        name="username"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                    />
-                </div>
-                <div>
-                    <label htmlFor="password">Password: </label>
-                    <input
-                        type="password"
-                        id="password"
-                        name="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                    />
-                </div>
-                <button type="submit">들어갑니다</button>
-            </form>
-            {message && <p>{message}</p>}
-            <p>
-                <a href="/signup">사실 초면입니다</a>
-            </p>
+        <div className="home-container">
+            <div className="home-box">
+                <h2 className="home-heading">로그인</h2>
+                <form onSubmit={handleSubmit} className="login-form">
+                    <div className="form-group">
+                        <label htmlFor="username">ID : </label>
+                        <input
+                            type="text"
+                            id="username"
+                            name="username"
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
+                            className="form-input"
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="password">Password : </label>
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            className="form-input"
+                        />
+                    </div>
+                    <button type="submit" className="home-button">로그인</button>
+                </form>
+                {message && <p className="form-message">{message}</p>}
+                <p>
+                    <a href="/signup" className="home-link">회원가입</a>
+                </p>
+            </div>
         </div>
     );
 }
