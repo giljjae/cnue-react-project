@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import '/home/kgj/load/cnue-react-project/src/App.css'; // 스타일을 적용하기 위해 import합니다.
+// import 하는 부분에 상세 루트가 포함되어 있어 삭제합니다.
+import '/home/kgj/load/cnue-react-project/src/App.css'; // 스타일을 적용하기 위해 import합니다. 
 
 function Login() {
     const [username, setUsername] = useState('');
